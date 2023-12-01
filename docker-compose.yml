@@ -1,16 +1,27 @@
 services:
   nginx:
-    container_name: nginx-entry
+    container_name: t.nginx
+    image: nginx-test
+    hostname: t.nginx
     build: ./nginx
     ports:
-      - "80:80"
+      - "3004:80"
     environment:
       - NGINX_PORT=80
-    networks: 
-      dnet:
+    networks:
+      - dnet
+  
+  client:
+    container_name: t.client
+    image: client-test
+    hostname: t.client
+    build: ./client
+    ports:
+      - "3000:80"
+    networks:
+      - dnet
 
 
 networks:
   dnet:
-    name: dnet
-    driver: bridge
+    
