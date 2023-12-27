@@ -21,6 +21,15 @@ services:
     networks:
       - dnet
 
+  backend:
+    container_name: t.backend
+    image: backend-test
+    build: ./backend
+    ports:
+      - "3003:80"
+    networks: 
+      - dnet
+
 
 networks:
   dnet:

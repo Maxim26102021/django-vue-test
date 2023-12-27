@@ -7,10 +7,10 @@ module.exports = {
   entry: './src/index.ts',
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'bundle.js',
+    filename: '[hash].js',
   },
   devServer: {
-    port: 1000,
+    port: 1001,
     hot: true,
     open: true,
     historyApiFallback: true,
