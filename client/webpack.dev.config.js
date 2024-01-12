@@ -3,16 +3,14 @@ const {
     VueLoaderPlugin
 } = require('vue-loader');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
-const CompressionPlugin = require("compression-webpack-plugin");
 const Dotenv = require('dotenv-webpack');
 
+
 module.exports = {
-    mode: 'production',
+    mode: 'development',
     entry: './src/index.ts',
     output: {
-        path: path.resolve(__dirname, 'static'),
+        path: path.resolve(__dirname, 'public'),
         filename: '[name].[contenthash].js',
         clean: true
     },
@@ -22,6 +20,13 @@ module.exports = {
             '@': path.resolve(__dirname, 'src')
         }
     },
+    devServer: {
+        static: {
+          directory: path.join(__dirname, 'public'),
+        },
+        compress: true,
+        port: 1001,
+      },
     devtool: 'source-map',
     module: {
         rules: [{
@@ -31,17 +36,6 @@ module.exports = {
                 options: {
                     configFile: 'tsconfig.json',
                     appendTsSuffixTo: [/\.vue$/]
-                }
-            },
-            {
-                test: /\.js$/,
-                loader: 'babel-loader',
-                options: {
-                    presets: [
-                        ['@babel/preset-env', {
-                            targets: 'defaults'
-                        }]
-                    ]
                 }
             },
             {
@@ -57,7 +51,6 @@ module.exports = {
             {
                 test: /\.(scss|css)$/,
                 use: [
-                    MiniCssExtractPlugin.loader,
                     'style-loader',
                     'css-loader',
                     'sass-loader'
@@ -73,24 +66,14 @@ module.exports = {
             },
         ]
     },
-    optimization: {
-        minimizer: [
-            new CssMinimizerPlugin(),
-        ],
-    },
     plugins: [
-        new CompressionPlugin({
-            test: /\.js(\?.*)?$/i,
-            algorithm: "gzip",
-            compressionOptions: { level: 4 },
-          }),
         new HtmlWebpackPlugin({
-            template: './public/index.html'
+            template: './public/index.html',
+            favicon: './public/favicon.ico'
         }),
-        new MiniCssExtractPlugin(),
         new VueLoaderPlugin(),
         new Dotenv({
-            path: './.env.production'
+            path: './.env.development'
         })
     ]
 };

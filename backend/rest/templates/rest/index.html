@@ -1,0 +1,21 @@
+{% extends 'rest/layout.html' %}
+
+{% block title %}
+    {{ varTitle }}
+{% endblock %}
+
+
+{% block content %}
+<section style="background-color: aqua; width: 100%; height: 100vh;">
+    <h4>this is rendered page</h4>
+
+    {% for el in varNews %}
+        <div>
+            {{ el.title }}
+        </div>
+    {% endfor %}
+</section>
+
+
+    {% include 'rest/inc.html'%}
+{% endblock %}
