@@ -1,8 +1,9 @@
 import { defineStore } from 'pinia'
+import { MainState } from '@/types/mainStore'
 
 export const useMainStore = defineStore({
   id: 'main',
-  state: () => ({
+  state: (): MainState => ({
     user: []
   }),
   getters: {

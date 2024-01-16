@@ -15,21 +15,20 @@
 
 <script setup lang="ts">
 
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import { useMainStore } from '@/store';
-import { commonService } from '@/shared/services/getData'
-import { User } from '@/types/user'
+import { usersService } from '@/shared/services/usersService'
 
 
 const inputData = ref<string>('');
 
 
 //methods
-const sendData = () => commonService.makeRequest(inputData.value);
+const sendData = () => usersService.makeRequest(inputData.value);
 
 
 //computed
-const usersList = computed<User[]>(() => {
+const usersList = computed(() => {
     return useMainStore().returnUser
 })
 

@@ -10,7 +10,6 @@
 
 
 <script lang="ts" setup>
-
     import { RouterView } from 'vue-router'
     import Default from '@/layouts/Default.vue';
 </script>
