@@ -8,23 +8,24 @@ class UsersCatalog extends CommonService<User, MainStoreSGA> {
     constructor() {
         super();
         this.route = 'user'
-        this.store = useMainStore(createPinia());
+
+        this.api.interceptors.request.use((response) => {
+            this.store = useMainStore();
+
+            return response;
+        })
     }
 
-    getData() {
+    getData(n: string) {
         try {
-            this.makeRequest().then(response => this.handleData(response))
+            this.makeRequest(n).then(response => this.handleData(response))
         } catch (error) {
             console.log(error);
         }
     }
 
-    handleData(data: any): void {
-        this.store?.putSMTH(data);
-    }
-
-    get getValue() {
-        return this.store?.returnUser
+    handleData(data: any): void {        
+        this.store?.putSMTH(data)
     }
 }
 

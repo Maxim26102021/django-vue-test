@@ -1,5 +1,4 @@
 import { useMainStore } from '@/store'
-import { defineStore } from 'pinia'
 import { NullStore } from './common'
 
 type MainStore = ReturnType<typeof useMainStore>

@@ -4,7 +4,7 @@
 
         <v-text-field v-model="inputData" hide-details="auto"></v-text-field>
 
-        <div class="output" v-for="item, index in usersList" :key="index">
+        <div class="output" v-for="item, index in store.usersList" :key="index">
             <div>{{ item.name }}</div>
             <div>{{ item.description }}</div>
         </div>
@@ -15,22 +15,19 @@
 
 <script setup lang="ts">
 
-import { ref, computed, onMounted } from 'vue';
+import { ref } from 'vue';
 import { useMainStore } from '@/store';
-import { usersService } from '@/shared/services/usersService'
+import { usersService } from '@/shared/services/usersService';
 
+const store = useMainStore();
 
 const inputData = ref<string>('');
 
 
 //methods
-const sendData = () => usersService.makeRequest(inputData.value);
-
-
-//computed
-const usersList = computed(() => {
-    return useMainStore().returnUser
-})
+const sendData = () => {
+    usersService.getData(inputData.value);
+}
 
 </script>
 

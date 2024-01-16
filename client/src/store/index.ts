@@ -7,7 +7,7 @@ export const useMainStore = defineStore({
     user: []
   }),
   getters: {
-    returnUser: (state) => state.user,
+    usersList: (state) => state.user
   },
   actions: {
     putSMTH(data: []) {
@@ -16,7 +16,6 @@ export const useMainStore = defineStore({
       data.forEach(element => {
         this.user.push(element)
       });
-
     }
   },
 })
